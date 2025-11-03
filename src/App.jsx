@@ -9,9 +9,9 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="relative">
+    <div className="relative bg-[#1a3a35]">
       {/* Cards Section - Fixed in center, behind Hero */}
-      <div className="fixed top-0 left-0 w-full h-screen flex items-center justify-center z-10">
+      <div className="fixed top-0 left-0 w-full h-screen flex items-center justify-center z-10 bg-[#1a3a35]">
         <CardsSection />
       </div>
 
@@ -19,7 +19,7 @@ function App() {
       <Hero />
 
       {/* Spacer for scroll */}
-      <div className="h-[200vh]"></div>
+      <div className="h-[200vh] bg-[#1a3a35]"></div>
     </div>
   );
 }

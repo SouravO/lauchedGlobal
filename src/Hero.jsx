@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import img from "./assets/student-global.png";
+import plane from "./assets/plane.png";
 
 const Hero = () => {
   const { scrollYProgress } = useScroll();
@@ -23,6 +24,35 @@ const Hero = () => {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.4, 0.6], [1, 0.3, 0]);
   const heroDisplay = useTransform(scrollYProgress, (value) =>
     value > 0.6 ? "none" : "block"
+  );
+
+  // Plane 3D animation - travels from hero to cards section
+  const planeX = useTransform(scrollYProgress, [0, 0.3, 0.6], [0, 400, 800]);
+  const planeY = useTransform(scrollYProgress, [0, 0.3, 0.6], [0, -150, -350]);
+  const planeRotateZ = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.6],
+    [0, 15, 30]
+  );
+  const planeRotateX = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.6],
+    [0, -10, -20]
+  );
+  const planeRotateY = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.6],
+    [0, 20, 45]
+  );
+  const planeScale = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.6],
+    [1, 1.8, 2.5]
+  );
+  const planeOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.5, 0.65],
+    [1, 1, 0.7, 0]
   );
 
   return (
@@ -78,7 +108,6 @@ const Hero = () => {
 
       {/* Hero Content */}
       <div className="w-full px-6 md:px-12 lg:px-20 py-12 md:py-5 flex flex-col lg:flex-row items-center justify-between gap-12 pointer-events-auto">
-        {/* Left Side - Text Content with animations */}
         <motion.div
           className="w-full lg:w-1/2 flex flex-col gap-8"
           style={{ x: textX, opacity: textOpacity }}
@@ -94,8 +123,24 @@ const Hero = () => {
           >
             India's <span className="text-red-800">#1</span>
             <br />
-            Career
-            <br />
+            <div className="flex items-center gap-4">
+              Career
+              <motion.img
+                className="w-12 md:w-16 lg:w-20"
+                src={plane}
+                alt="Flying plane"
+                style={{
+                  x: planeX,
+                  y: planeY,
+                  rotateZ: planeRotateZ,
+                  rotateX: planeRotateX,
+                  rotateY: planeRotateY,
+                  scale: planeScale,
+                  opacity: planeOpacity,
+                  transformStyle: "preserve-3d",
+                }}
+              />
+            </div>
             Accelerator
           </motion.h1>
 
