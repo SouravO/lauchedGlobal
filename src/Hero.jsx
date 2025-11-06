@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import img from "./assets/student-global.png";
 import plane from "./assets/plane.png";
+import Navbar from "./Navbar";
 
 const Hero = () => {
   const { scrollYProgress } = useScroll();
@@ -24,12 +25,12 @@ const Hero = () => {
         setTitleComplete(true);
         clearInterval(typingInterval);
       }
-    }, 80); // 80ms per character for dramatic effect
+    }, 80); 
 
     return () => clearInterval(typingInterval);
   }, []);
 
-  // Typing animation for subtitle (starts after title)
+  // Typing animation for subtitle 
   useEffect(() => {
     if (titleComplete) {
       let currentIndex = 0;
@@ -41,13 +42,13 @@ const Hero = () => {
           setShowCursor(false);
           clearInterval(typingInterval);
         }
-      }, 60); // Faster for subtitle
+      }, 60); 
 
       return () => clearInterval(typingInterval);
     }
   }, [titleComplete]);
 
-  // Cursor blink effect
+  //  blink effect
   useEffect(() => {
     const cursorInterval = setInterval(() => {
       if (showCursor) {
@@ -58,12 +59,11 @@ const Hero = () => {
     return () => clearInterval(cursorInterval);
   }, [showCursor]);
 
-  // Transform values for "door opening" scroll animations
-  // Left door (text) slides further left
+  // slides to the left
   const textX = useTransform(scrollYProgress, [0, 0.5], [0, -800]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.3, 0.5], [1, 0.7, 0]);
 
-  // Right door (image) slides further right
+  // Slides to the right
   const imageX = useTransform(scrollYProgress, [0, 0.5], [0, 800]);
   const imageRotate = useTransform(scrollYProgress, [0, 0.5], [0, 180]);
   const imageOpacity = useTransform(
@@ -72,13 +72,13 @@ const Hero = () => {
     [1, 0.7, 0]
   );
 
-  // Make Hero disappear after splitting
+  // hero page to half 
   const heroOpacity = useTransform(scrollYProgress, [0, 0.4, 0.6], [1, 0.3, 0]);
   const heroDisplay = useTransform(scrollYProgress, (value) =>
     value > 0.6 ? "none" : "block"
   );
 
-  // Plane 3D animation - travels from hero to cards section
+  // Plane 3D animation 
   const planeX = useTransform(scrollYProgress, [0, 0.3, 0.6], [0, 400, 800]);
   const planeY = useTransform(scrollYProgress, [0, 0.3, 0.6], [0, -150, -350]);
   const planeRotateZ = useTransform(
@@ -113,47 +113,7 @@ const Hero = () => {
       style={{ opacity: heroOpacity }}
     >
       {/* Navigation Bar */}
-      <nav className="w-full flex items-center justify-between px-6 md:px-12 lg:px-20 py-6 pointer-events-auto">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-            <span className="text-[#1a3a35] font-bold text-sm">L</span>
-          </div>
-          <span className="text-xl font-semibold">Lauched Global</span>
-        </div>
-
-        {/* Navigation Links - Hidden on mobile */}
-        <div className="hidden md:flex items-center gap-8 text-sm">
-          <a
-            href="#personal"
-            className="hover:text-green-300 transition-colors"
-          >
-            Study Abroad
-          </a>
-          <a
-            href="#business"
-            className="hover:text-green-300 transition-colors"
-          >
-            Career Launchpad
-          </a>
-          <a href="#feature" className="hover:text-green-300 transition-colors">
-            Professional Courses
-          </a>
-          <a href="#company" className="hover:text-green-300 transition-colors">
-            HealthCare Job
-          </a>
-        </div>
-
-        {/* Auth Buttons */}
-        <div className="flex items-center gap-4">
-          <button className="text-sm hover:text-green-300 transition-colors">
-            Login
-          </button>
-          <button className="px-6 py-2 bg-green-200 text-[#1a3a35] rounded-full text-sm font-medium hover:bg-green-300 transition-colors">
-            Register
-          </button>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Content */}
       <div className="w-full px-4 md:px-6 lg:px-12 xl:px-20 py-6 md:py-10 lg:py-12 flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8 lg:gap-12 pointer-events-auto">
@@ -163,7 +123,6 @@ const Hero = () => {
         >
           <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-[#d4e8d4] min-h-[200px] relative">
             {displayedTitle.split("\n").map((line, index) => {
-              // Check if this line contains "#1"
               if (line.includes("#1")) {
                 const parts = line.split("#1");
                 return (
@@ -175,7 +134,6 @@ const Hero = () => {
                 );
               }
 
-              // Check if this line is "Career"
               if (line.trim() === "Career") {
                 return (
                   <div
@@ -210,7 +168,7 @@ const Hero = () => {
               return <div key={index}>{line}</div>;
             })}
 
-            {/* Typing cursor */}
+            {/* Typing part */}
             {!titleComplete && showCursor && (
               <motion.span
                 className="inline-block w-1 h-[0.8em] bg-white ml-2 align-middle"
@@ -229,7 +187,7 @@ const Hero = () => {
               <div key={index}>{line}</div>
             ))}
 
-            {/* Subtitle cursor */}
+            {/* Subtitle cursor part*/}
             {titleComplete &&
               !showCursor &&
               displayedSubtitle.length < subtitleText.length && (
@@ -280,7 +238,7 @@ const Hero = () => {
             </span>
           </motion.button>
         </motion.div>{" "}
-        {/* Right Side - Circular Image with animations */}
+        {/* Right Side image part */}
         <motion.div
           className="w-full lg:w-1/2 flex items-center justify-center"
           style={{ x: imageX, rotate: imageRotate, opacity: imageOpacity }}
@@ -304,7 +262,7 @@ const Hero = () => {
                 transition={{ duration: 1, delay: 0.7 }}
               />
             </motion.div>
-            {/* Decorative lines with staggered animation */}
+
             <motion.div
               className="absolute -right-4 md:-right-8 top-1/2 -translate-y-1/2 flex flex-col gap-1 md:gap-2"
               initial={{ opacity: 0, x: -20 }}

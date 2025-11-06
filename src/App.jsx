@@ -24,15 +24,14 @@ function App() {
       </AnimatePresence>
 
       <div className="relative bg-[#1a3a35]">
-        {/* Cards Section - Fixed in center, behind Hero */}
+        {/* card sction  */}
         <div className="fixed top-0 left-0 w-full h-screen flex items-start md:items-center justify-center z-10 bg-[#1a3a35] pt-20 md:pt-0">
           <CardsSection />
         </div>
 
-        {/* Hero Section - Fixed on top, splits on scroll */}
+        {/* Hero Section */}
         <Hero />
 
-        {/* Spacer for scroll */}
         <div className="h-[200vh] bg-[#1a3a35]"></div>
       </div>
     </>

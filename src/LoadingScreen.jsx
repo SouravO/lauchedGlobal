@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 
 const LoadingScreen = ({ onLoadingComplete }) => {
   React.useEffect(() => {
-    // Auto-hide loading screen after 3 seconds
     const timer = setTimeout(() => {
       onLoadingComplete();
     }, 3000);
@@ -19,15 +18,18 @@ const LoadingScreen = ({ onLoadingComplete }) => {
       transition={{ duration: 0.8 }}
     >
       {/* Airplane Loader */}
-      <div className="planeWrapper">
-        <div className="planeBody">
-          <div className="planeTail"></div>
-          <div className="wingLeft"></div>
-          <div className="wingRight"></div>
+      <div className="w-[150px] aspect-square grid place-items-center animate-spin">
+        <div className="relative w-3/4 aspect-[7/1] bg-teal-200 rounded-bl-[50%_100%] rounded-tr-[25%_90%] rounded-br-[20%_20%]">
+          <div className="absolute left-[calc(-0.3%+1px)] top-[-120%] w-[15%] aspect-[1/1.25] bg-teal-200 skew-x-[5deg] translate-x-[-5%] rounded-tl-[10%] rounded-tr-[100%_100%]">
+            <div className="absolute h-[55%] aspect-square right-[-60%] bottom-[4.5%] bg-gradient-radial from-transparent from-70% to-teal-200 to-70% rounded-full transform skew-x-0 -rotate-[8deg]"></div>
+          </div>
+          
+          <div className="absolute left-1/2 top-[-190%] w-1/4 aspect-square bg-teal-200 origin-bottom skew-x-45 translate-x-[-30%] scale-75 rounded-tl-[10%] rounded-tr-[60%_100%]"></div>
+          
+          <div className="absolute left-1/2 bottom-[-170%] w-1/4 aspect-square bg-teal-200 origin-top -skew-x-45 rounded-bl-[10%] rounded-br-[60%_100%]"></div>
         </div>
       </div>
 
-      {/* Loading Text */}
       <motion.div
         className="mt-8 text-center"
         initial={{ opacity: 0, y: 20 }}
@@ -41,97 +43,6 @@ const LoadingScreen = ({ onLoadingComplete }) => {
           Preparing your journey...
         </p>
       </motion.div>
-
-      <style jsx>{`
-        :root {
-          --planeColor: hsl(160, 50%, 85%);
-          --size: 150px;
-        }
-
-        .planeWrapper {
-          width: var(--size);
-          aspect-ratio: 1;
-          display: grid;
-          place-items: center;
-          transform-origin: center;
-          animation: loadingAnimation 2s ease-in-out infinite;
-        }
-
-        @keyframes loadingAnimation {
-          to {
-            transform: rotate(-360deg);
-          }
-        }
-
-        .planeBody,
-        .planeBody * {
-          background: var(--planeColor);
-        }
-
-        .planeBody {
-          position: relative;
-          width: 75%;
-          aspect-ratio: 7/1;
-          border-bottom-left-radius: 50% 100%;
-          border-top-right-radius: 25% 90%;
-          border-bottom-right-radius: 20% 20%;
-        }
-
-        .planeTail,
-        .wingLeft,
-        .wingRight {
-          position: absolute;
-        }
-
-        .planeTail {
-          left: calc(-0.3% + 1px);
-          top: -120%;
-          width: 15%;
-          aspect-ratio: 1/1.25;
-          transform: skewX(5deg) translateX(-5%);
-          border-top-left-radius: 10%;
-          border-top-right-radius: 100% 100%;
-        }
-
-        .wingLeft,
-        .wingRight {
-          left: 50%;
-          width: 25%;
-          aspect-ratio: 1;
-        }
-
-        .wingLeft {
-          transform-origin: bottom;
-          top: -190%;
-          transform: skewX(45deg) translateX(-30%);
-          scale: 0.8;
-          border-top-left-radius: 10%;
-          border-top-right-radius: 60% 100%;
-        }
-
-        .wingRight {
-          transform-origin: top;
-          bottom: -170%;
-          transform: skewX(-45deg);
-          border-bottom-left-radius: 10%;
-          border-bottom-right-radius: 60% 100%;
-        }
-
-        .planeTail::after {
-          content: "";
-          position: absolute;
-          height: 55%;
-          aspect-ratio: 1;
-          transform: skewX(0deg) rotate(-8deg);
-          right: -60%;
-          bottom: 4.5%;
-          background: radial-gradient(
-            circle at 100% 0%,
-            transparent 70%,
-            var(--planeColor) calc(70% + 0.5px)
-          );
-        }
-      `}</style>
     </motion.div>
   );
 };

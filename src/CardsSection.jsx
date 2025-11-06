@@ -35,12 +35,12 @@ const CardsSection = () => {
         setIsTypingComplete(true);
         clearInterval(typingInterval);
       }
-    }, 50); // 50ms per character for smooth typing
+    }, 50);
 
     return () => clearInterval(typingInterval);
   }, []);
 
-  // Auto-carousel effect - cycles through cards every 3 seconds (desktop only)
+  // Carousel part
   useEffect(() => {
     if (!isMobile) {
       const interval = setInterval(() => {
@@ -50,7 +50,6 @@ const CardsSection = () => {
     }
   }, [isMobile]);
 
-  // Cards emerge from center as Hero splits - all scroll-based (Desktop only)
   const cardsOpacity = useTransform(
     scrollYProgress,
     [0, 0.2, 0.5],
@@ -72,7 +71,7 @@ const CardsSection = () => {
     isMobile ? [0, 0, 0] : [100, 50, 0]
   );
 
-  // Title animations - scroll-based (always visible on mobile)
+  // Title animations
   const titleOpacity = useTransform(
     scrollYProgress,
     [0.15, 0.3, 0.5],
@@ -94,9 +93,7 @@ const CardsSection = () => {
     isMobile ? [1, 1] : [0.7, 1]
   );
 
-  // Individual card animations - different for mobile vs desktop
-  // Mobile: Sequential stacking effect
-  // Desktop: 3D reveal from center
+  // card mobile amd desktop
   const card1Y = useTransform(
     scrollYProgress,
     isMobile ? [0.2, 0.3] : [0.25, 0.5],
@@ -296,7 +293,7 @@ const CardsSection = () => {
           </h2>
         </motion.div>
 
-        {/* Cards Grid - Desktop: grid layout, Mobile: stacking layout */}
+        {/* Desktop: grid , Mobile: stacking  */}
         <div
           className={`${
             isMobile
@@ -362,7 +359,7 @@ const CardsSection = () => {
                       : { aspectRatio: "3/4", minHeight: "unset" }),
                   }}
                 >
-                  {/* Card Image - Full card on desktop, top section on mobile */}
+                  {/* Card Image partr */}
                   <div
                     className={`relative ${
                       isMobile
@@ -384,7 +381,7 @@ const CardsSection = () => {
                       }}
                     />
 
-                    {/* Desktop: Dark overlay that fades on focus */}
+                    {/* Focus effect */}
                     {!isMobile && (
                       <motion.div
                         className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-black/60 transition-all duration-700 pointer-events-none"
@@ -425,7 +422,7 @@ const CardsSection = () => {
                     )}
                   </div>
 
-                  {/* Card Content Overlay (Desktop) - Shows when focused or hovered */}
+                  {/* hover*/}
                   {!isMobile && (
                     <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-8">
                       {/* Title - Always visible at bottom */}
@@ -454,7 +451,7 @@ const CardsSection = () => {
                           {card.description}
                         </p>
 
-                        {/* Premium CTA button */}
+                        {/*  button */}
                         <motion.button
                           className="px-6 py-2.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-full text-sm font-medium hover:bg-white/20 transition-all duration-300"
                           whileHover={{ scale: 1.05 }}
@@ -466,7 +463,7 @@ const CardsSection = () => {
                     </div>
                   )}
 
-                  {/* Card Content (Mobile) - Traditional layout */}
+                  {/* Card Content */}
                   {isMobile && (
                     <div
                       className="p-3"
@@ -483,7 +480,6 @@ const CardsSection = () => {
                     </div>
                   )}
 
-                  {/* Premium border glow when focused (desktop only) */}
                   {!isMobile && (
                     <div
                       className={`absolute inset-0 border-2 rounded-3xl transition-all duration-700 pointer-events-none ${
